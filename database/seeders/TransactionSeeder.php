@@ -12,7 +12,7 @@ class TransactionSeeder extends Seeder
 {
     public function run()
     {
-        Product::all()->take(500)->each(function ($product) {
+        Product::all()->take(2)->each(function ($product) {
             $buyer = User::all()->except($product->seller_id)->random();
             Transaction::factory()->create([
                 'buyer_id' => $buyer->id,

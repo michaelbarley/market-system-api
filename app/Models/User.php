@@ -49,11 +49,26 @@ class User extends Authenticatable
 
     public function transactions()
     {
-        return $this->hasMany(Transaction::class);
+        return $this->hasMany(Transaction::class, 'buyer_id');
     }
 
     public function products()
     {
-        return $this->hasMany(Product::class);
+        return $this->hasMany(Product::class, 'seller_id');
+    }
+
+    public function setNameAttribute($name)
+    {
+        $this->attributes['name'] = $name;
+    }
+
+    public function getNameAttribute($name)
+    {
+        return ucwords($name);
+    }
+
+    public function setEmailAttribute($email)
+    {
+        $this->attributes['email'] = strtolower($email);
     }
 }
