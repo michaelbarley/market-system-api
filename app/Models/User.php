@@ -5,10 +5,11 @@ namespace App\Models;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class User extends Authenticatable
 {
-    use Notifiable;
+    use Notifiable, HasFactory;
 
     const VERIFIED_USER = '1';
     const UNVERIFIED_USER = '0';
@@ -44,5 +45,15 @@ class User extends Authenticatable
     public static function generateVerificationCode()
     {
         return Str::random(40);
+    }
+
+    public function transactions()
+    {
+        return $this->hasMany(Transaction::class);
+    }
+
+    public function products()
+    {
+        return $this->hasMany(Product::class);
     }
 }

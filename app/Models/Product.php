@@ -4,11 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Category;
-use App\Models\Seller;
 use App\Models\Transaction;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Product extends Model
 {
+    use HasFactory;
+
     const AVAILABLE_PRODUCT = 'available';
     const UNAVAILABLE_PRODUCT = 'unavailable';
 
@@ -28,7 +30,7 @@ class Product extends Model
 
     public function seller()
     {
-        return $this->belongsTo(Seller::class);
+        return $this->belongsTo(User::class);
     }
 
     public function transactions()

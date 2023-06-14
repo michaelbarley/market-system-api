@@ -5,9 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Buyer;
 use App\Models\Product;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Transaction extends Model
 {
+    use HasFactory;
+
     protected $fillable = [
         'quantity',
         'buyer_id',
@@ -16,11 +19,11 @@ class Transaction extends Model
 
     public function buyer()
     {
-        $this->belongsTo(Buyer::class);
+        return $this->belongsTo(User::class, 'buyer_id');
     }
 
     public function product()
     {
-        $this->belongsTo(Product::class);
+        return $this->belongsTo(Product::class, 'product_id');
     }
 }

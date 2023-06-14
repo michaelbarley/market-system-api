@@ -8,6 +8,13 @@ use App\Http\Controllers\Transaction\TransactionController;
 use App\Http\Controllers\User\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Models\Buyer;
+use App\Models\Category;
+use App\Models\Product;
+use App\Models\Seller;
+use App\Models\Transaction;
+use App\Models\User;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -20,9 +27,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::resource('buyers', BuyerController::class, ['only' => ['index', 'show']]);
+Route::resource('buyers', BuyerController::class, ['only' => ['index', 'show']])->parameters([
+    'buyers' => 'user'
+]);
+
+Route::resource('sellers', SellerController::class, ['only' => ['index', 'show']])->parameters([
+    'sellers' => 'user'
+]);
 Route::resource('categories', CatergoryController::class, ['except', ['create', 'edit']]);
 Route::resource('products', ProductController::class, ['only' => ['index', 'show']]);
-Route::resource('sellers', SellerController::class, ['only' => ['index', 'show']]);
 Route::resource('transactions', TransactionController::class, ['only' => ['index', 'show']]);
 Route::resource('users', UserController::class, ['except', ['create', 'edit']]);
