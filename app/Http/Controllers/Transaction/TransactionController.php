@@ -10,11 +10,11 @@ class TransactionController extends Controller
 {
     public function index()
     {
-        //
+        return response()->json(['data' => Transaction::all()], 200);
     }
 
     public function show(Transaction $transaction)
     {
-        //
+        return response()->json(['data' => $transaction], 200);
     }
 }
