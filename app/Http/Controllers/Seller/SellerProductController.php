@@ -42,8 +42,6 @@ class SellerProductController extends Controller
         return response()->json(['data' => $product], 201);
     }
 
-    // In your SellerProductController
-
     /**
      * Update the specified resource in storage.
      */

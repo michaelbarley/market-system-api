@@ -13,7 +13,6 @@ class ProductTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
     public function it_marks_a_product_as_unavailable_when_its_quantity_reaches_zero()
     {
         Category::factory()->count(5)->create();
