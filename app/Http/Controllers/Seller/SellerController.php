@@ -8,9 +8,15 @@ use Illuminate\Http\Request;
 
 class SellerController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        return response()->json(['data' => User::has('products')->get()], 200);
+        $sellers = User::query();
+        $sellers->has('products');
+        $sellers = $this->filterData($request, $sellers);
+        $sellers = $this->sortData($request, $sellers);
+        $sellers = $this->paginateData($request, $sellers);
+
+        return response()->json(['data' => $sellers], 200);
     }
 
     public function show(User $user)

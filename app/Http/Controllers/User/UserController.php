@@ -9,9 +9,14 @@ use Illuminate\Http\Request;
 class UserController extends Controller
 
 {
-    public function index()
+    public function index(Request $request)
     {
-        return response()->json(['data' => User::all()], 200);
+        $users = User::query();
+        $users = $this->filterData($request, $users);
+        $users = $this->sortData($request, $users);
+        $users = $this->paginateData($request, $users);
+
+        return response()->json(['data' => $users], 200);
     }
 
     public function store(Request $request)

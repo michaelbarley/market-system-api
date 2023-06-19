@@ -8,9 +8,16 @@ use Illuminate\Http\Request;
 
 class BuyerController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        return response()->json(['data' => User::has('transactions')->get()], 200);
+        $buyers = User::query();
+
+        $buyers->has('transactions');
+        $buyers = $this->filterData($request, $buyers);
+        $buyers = $this->sortData($request, $buyers);
+        $buyers = $this->paginateData($request, $buyers);
+
+        return response()->json(['data' => $buyers], 200);
     }
 
     public function show(User $user)

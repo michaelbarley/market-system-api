@@ -9,9 +9,14 @@ use Illuminate\Http\Request;
 class CategoryController extends Controller
 
 {
-    public function index()
+    public function index(Request $request)
     {
-        return response()->json(['data' => Category::all()], 200);
+        $categories = Category::query();
+        $categories = $this->filterData($request, $categories);
+        $categories = $this->sortData($request, $categories);
+        $categories = $this->paginateData($request, $categories);
+
+        return response()->json(['data' => $categories], 200);
     }
 
     public function store(Request $request)

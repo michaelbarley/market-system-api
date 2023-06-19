@@ -8,9 +8,14 @@ use Illuminate\Http\Request;
 
 class TransactionController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        return response()->json(['data' => Transaction::all()], 200);
+        $transactions = Transaction::query();
+        $transactions = $this->filterData($request, $transactions);
+        $transactions = $this->sortData($request, $transactions);
+        $transactions = $this->paginateData($request, $transactions);
+
+        return response()->json(['data' => $transactions], 200);
     }
 
     public function show(Transaction $transaction)
